@@ -1,0 +1,25 @@
+steps:
+
+- id: "Install"
+  name: 'gcr.io/cloud-builders/go'
+  args: ['install', '.']
+  env: ['PROJECT_ROOT=src/sum']
+  dir: "./src/sum"
+
+- id: "Rodando testes"  
+  name: 'gcr.io/cloud-builders/go'
+  args: ['test', '.']
+  env: ["GOPATH=./go"]
+  dir: "./src/sum"
+  
+- id: "Executando o script"
+  name: "gcr.io/cloud-builders/go"
+  args: ["run", "."]
+  env: ["GOPATH=./go"]
+  dir: "./src/sum"
+  
+- id: "Build e push"  
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/sum', '.']
+  
+images: ['gcr.io/$PROJECT_ID/sum']
