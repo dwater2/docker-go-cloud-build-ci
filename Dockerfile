@@ -1,4 +1,5 @@
 FROM golang:1.12-alpine as builder
+
 ADD src/sum /src/sum
 WORKDIR /src/sum
 COPY . .
